@@ -1,4 +1,4 @@
-package com.oztotipac.org.auth.org;
+package com.oztotipac.org.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

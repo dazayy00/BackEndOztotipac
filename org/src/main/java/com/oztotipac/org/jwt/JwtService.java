@@ -1,4 +1,4 @@
-package com.oztotipac.org.jwt.org;
+package com.oztotipac.org.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.io.Decoders;

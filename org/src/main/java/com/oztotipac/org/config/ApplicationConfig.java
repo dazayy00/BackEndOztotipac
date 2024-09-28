@@ -1,6 +1,6 @@
-package com.oztotipac.org.config.org;
+package com.oztotipac.org.config;
 
-import com.oztotipac.org.user.org.UserRepository;
+import com.oztotipac.org.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

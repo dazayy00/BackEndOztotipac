@@ -1,4 +1,4 @@
-package com.oztotipac.org.user.org;
+package com.oztotipac.org.user;
 
 import java.util.Collection;
 import java.util.List;

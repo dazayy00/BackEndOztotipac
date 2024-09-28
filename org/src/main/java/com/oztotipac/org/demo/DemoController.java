@@ -1,4 +1,4 @@
-package com.oztotipac.org.demo.org;
+package com.oztotipac.org.demo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

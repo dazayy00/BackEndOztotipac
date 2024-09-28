@@ -1,9 +1,9 @@
-package com.oztotipac.org.auth.org;
+package com.oztotipac.org.auth;
 
-import com.oztotipac.org.jwt.org.JwtService;
-import com.oztotipac.org.user.org.Role;
-import com.oztotipac.org.user.org.Users;
-import com.oztotipac.org.user.org.UserRepository;
+import com.oztotipac.org.jwt.JwtService;
+import com.oztotipac.org.user.Role;
+import com.oztotipac.org.user.Users;
+import com.oztotipac.org.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

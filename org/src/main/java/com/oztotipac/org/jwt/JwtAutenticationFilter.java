@@ -1,4 +1,4 @@
-package com.oztotipac.org.jwt.org;
+package com.oztotipac.org.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
