@@ -21,13 +21,16 @@ public class JwtService {
     private static final String SECRET_KEY="pcqnQli994KauoHt";
 
     public String getToken(UserDetails user) {
-        return getToken(new HashMap<>(), user);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", user.getAuthorities().stream().findFirst().get().getAuthority()); //incluye rol de user
+        return getToken(claims, user);
     }
 
-    private String getToken(Map<String,Object> extraClains, UserDetails user) {
+    private String getToken(Map<String,Object> extraClaims, UserDetails user) {
+        extraClaims.put("role", user.getAuthorities().stream().findFirst().get().getAuthority()); //rol se almacena
         return Jwts
                 .builder()
-                .setClaims(extraClains)
+                .setClaims(extraClaims)
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60*24))
@@ -42,6 +45,10 @@ public class JwtService {
 
     public String getEmailFromToken(String token) {
         return getClaim(token, Claims::getSubject);
+    }
+
+    public String getRoleFromToken(String token) {
+        return getClaim(token, claims -> claims.get("role", String.class));
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {

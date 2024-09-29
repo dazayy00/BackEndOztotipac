@@ -19,16 +19,20 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authProvider;
     private final JwtAutenticationFilter jwtAuthenticationFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf ->
                   csrf
-                  .disable())
+                  .disable()) //desactiva CSRF ya que se usa JWT
                 .authorizeHttpRequests(authRequest ->
                    authRequest
-                     .requestMatchers("/auth/**").permitAll()
-                     .anyRequest().authenticated()
+                     .requestMatchers("/auth/**").permitAll() //open routes
+                     .requestMatchers("/admin/**").hasRole("ADMIN") //admin access
+                     .requestMatchers("/supervisor/**").hasRole("SUP") //supervisor access
+                     .requestMatchers("/client/**").hasRole("CLIENT") //clien access
+                     .anyRequest().authenticated() //routes with authentication
                 )
                 .sessionManagement(sessionManager->
                         sessionManager
