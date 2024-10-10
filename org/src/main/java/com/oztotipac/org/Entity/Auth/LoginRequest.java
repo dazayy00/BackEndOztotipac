@@ -1,4 +1,4 @@
-package com.oztotipac.org.auth;
+package com.oztotipac.org.Entity.Auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthReponse {
-    private String token;
+public class LoginRequest {
+
+    String email;
+    String password;
 }
