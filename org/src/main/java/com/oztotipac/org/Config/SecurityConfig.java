@@ -7,20 +7,22 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults()) // Habilita la configuración de CORS definida
                 .csrf(csrf -> csrf.disable()) // Desactiva CSRF solo si no se necesita
+                .cors(Customizer.withDefaults()) // Habilita la configuración de CORS definida
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll() // Permitir solo rutas específicas para POST sin autenticación
+                        .requestMatchers(HttpMethod.POST, "/login", "/register", "/oztotipac/user/register").permitAll() // Permitir solo rutas específicas para POST sin autenticación
                         .anyRequest().authenticated()) // Exigir autenticación para todas las demás rutas
                 .httpBasic(Customizer.withDefaults()); // Habilita autenticación HTTP básica
         return http.build();

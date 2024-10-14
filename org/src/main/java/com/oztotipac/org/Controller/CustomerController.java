@@ -29,11 +29,18 @@ public class CustomerController {
         return ResponseEntity.ok().body(customer);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create") // Endpoint original para crear clientes
     public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerForm customerForm) {
         CustomerDTO createdCustomer = customerService.createCustomer(customerForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
+
+    @PostMapping("/register") // Nuevo endpoint para registrar un cliente
+    public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody CustomerForm customerForm) {
+        CustomerDTO createdCustomer = customerService.createCustomer(customerForm);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerForm customerForm) {

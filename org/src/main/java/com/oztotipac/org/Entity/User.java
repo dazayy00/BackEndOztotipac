@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)  // Estrategia de herencia
 @DiscriminatorColumn(name = "user_type")  // Columna para discriminar el tipo de usuario
 public class User {

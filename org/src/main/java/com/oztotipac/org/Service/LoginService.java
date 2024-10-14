@@ -9,10 +9,10 @@ import com.oztotipac.org.Repository.AdminRepository;
 import com.oztotipac.org.Repository.SupervisorLoginRepository;
 import com.oztotipac.org.Repository.CustomerLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,6 +26,9 @@ public class LoginService implements UserDetailsService {
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -68,7 +71,7 @@ public class LoginService implements UserDetailsService {
     public AuthResponse login(String email, String password) throws UsernameNotFoundException {
         Supervisor supervisor = supervisorRepository.findByEmail(email);
 
-        if (supervisor != null && supervisor.getPassword().equals(password)) {
+        if (supervisor != null && passwordEncoder.matches(password, supervisor.getPassword())) {
             return AuthResponse.builder()
                     .idUser(supervisor.getIdUser().toString())
                     .userType(UserType.valueOf("SUPERVISOR"))
@@ -78,7 +81,7 @@ public class LoginService implements UserDetailsService {
 
         Customer customer = customerRepository.findByEmail(email);
 
-        if (customer != null && customer.getPassword().equals(password)) {
+        if (customer != null && passwordEncoder.matches(password, customer.getPassword())) {
             return AuthResponse.builder()
                     .idUser(customer.getIdUser().toString())
                     .userType(UserType.valueOf("CUSTOMER"))
@@ -88,7 +91,7 @@ public class LoginService implements UserDetailsService {
 
         Admin admin = adminRepository.findByEmail(email);
 
-        if (admin != null && admin.getPassword().equals(password)) {
+        if (admin != null && passwordEncoder.matches(password, admin.getPassword())) {
             return AuthResponse.builder()
                     .idUser(admin.getIdUser().toString())
                     .userType(UserType.valueOf("ADMIN"))
