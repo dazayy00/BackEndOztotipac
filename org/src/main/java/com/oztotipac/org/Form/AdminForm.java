@@ -1,5 +1,6 @@
 package com.oztotipac.org.Form;
 
+import com.oztotipac.org.Entity.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
@@ -33,4 +34,6 @@ public class AdminForm implements Serializable {
 
     @Size(min = 13, max = 13, message = "{rfc.right.length}")
     private String rfc;
+
+    private UserType userType;
 }

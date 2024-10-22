@@ -1,5 +1,6 @@
 package com.oztotipac.org.Form;
 
+import com.oztotipac.org.Entity.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
@@ -34,4 +35,5 @@ public class SupervisorForm implements Serializable {
     @Size(min = 6, message = "{password.min.length}")
     private String password;
 
+    private UserType userType;
 }

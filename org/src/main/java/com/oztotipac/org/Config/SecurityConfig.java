@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Desactiva CSRF solo si no se necesita
                 .cors(Customizer.withDefaults()) // Habilita la configuración de CORS definida
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers(HttpMethod.POST, "/oztotipac/auth/login", "/oztotipac/user/register").permitAll() // Permitir solo rutas específicas para POST sin autenticación
+                        .requestMatchers(HttpMethod.POST, "/oztotipac/auth/login", "/oztotipac/supervisor/register", "/oztotipac/customer/register", "/oztotipac/admin/register").permitAll()
                         .anyRequest().authenticated()) // Exigir autenticación para todas las demás rutas
                 .httpBasic(Customizer.withDefaults()); // Habilita autenticación HTTP básica
         return http.build();
