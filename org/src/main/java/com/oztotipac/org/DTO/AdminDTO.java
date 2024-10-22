@@ -1,22 +1,26 @@
 package com.oztotipac.org.DTO;
 
 import com.oztotipac.org.Entity.Admin;
+import com.oztotipac.org.Entity.UserType;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 public class AdminDTO {
-    private Long idUser;             // ID del usuario (Admin)
-    private String firstName;        // Nombre del admin
-    private String lastNamePaternal; // Apellido paterno
-    private String lastNameMaternal; // Apellido materno
-    private LocalDate birthdate;     // Fecha de nacimiento
-    private String phoneNumber;      // Número de teléfono
-    private String rfc;              // RFC
-    private String email;            // Email
+    private Long idUser;
+    private String firstName;
+    private String lastNamePaternal;
+    private String lastNameMaternal;
+    private LocalDate birthdate;
+    private String phoneNumber;
+    private String rfc;
+    private String email;
+    private LocalDateTime createdAt;
+    private UserType userType;
 
     public static AdminDTO fromAdmin(final Admin admin) {
         return AdminDTO.builder()
@@ -28,6 +32,8 @@ public class AdminDTO {
                 .phoneNumber(admin.getPhoneNumber())
                 .rfc(admin.getRfc())
                 .email(admin.getEmail())
+                .createdAt(admin.getCreatedAt())
+                .userType(admin.getUserType())
                 .build();
     }
 }

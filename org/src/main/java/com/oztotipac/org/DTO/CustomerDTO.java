@@ -1,52 +1,44 @@
 package com.oztotipac.org.DTO;
 
 import com.oztotipac.org.Entity.Customer;
-import lombok.Builder;
+import com.oztotipac.org.Entity.UserType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 public class CustomerDTO extends UserDTO {
-    private Long idUser; // Asegúrate de que este valor esté siendo seteado
-    private String firstName;
-    private String lastNamePaternal;
-    private String lastNameMaternal;
-    private LocalDate birthdate;
-    private String phoneNumber;
-    private String rfc;
-    private String email;
-    private LocalDateTime createdAt;
 
-    public CustomerDTO(Long idUser, String firstName, String lastNamePaternal, String lastNameMaternal, LocalDate birthdate, String phoneNumber, String rfc, String email, LocalDateTime createdAt) {
-        super(idUser, firstName, email, createdAt);
-        this.idUser = idUser;
-        this.firstName = firstName;
-        this.lastNamePaternal = lastNamePaternal;
-        this.lastNameMaternal = lastNameMaternal;
-        this.birthdate = birthdate;
-        this.phoneNumber = phoneNumber;
-        this.rfc = rfc;
-        this.email = email;
-        this.createdAt = createdAt;
+    private LocalDateTime UpdatedAt;
+    private LocalDateTime DeletedAt;
+
+    public CustomerDTO(Long idUser, String firstName, String lastNamePaternal, String lastNameMaternal, LocalDate birthdate, String phoneNumber, String rfc, String email, String password, LocalDateTime createdAt, UserType userType, LocalDateTime updatedAt, LocalDateTime deletedAt) {
+        super(idUser, firstName, lastNamePaternal, lastNameMaternal, birthdate, phoneNumber, rfc, email, password, createdAt, userType);
+        this.UpdatedAt = updatedAt;
+        this.DeletedAt = deletedAt;
     }
 
     public static CustomerDTO build(final Customer customer) {
-        return new CustomerDTO(
-                customer.getIdUser(),
-                customer.getFirstName(),
-                customer.getLastNamePaternal(),
-                customer.getLastNameMaternal(),
-                customer.getBirthdate(),
-                customer.getPhoneNumber(),
-                customer.getRfc(),
-                customer.getEmail(),
-                customer.getCreatedAt()
-        );
+        return CustomerDTO.builder()
+                .idUser(customer.getIdUser())
+                .firstName(customer.getFirstName())
+                .lastNamePaternal(customer.getLastNamePaternal())
+                .lastNameMaternal(customer.getLastNameMaternal())
+                .birthdate(customer.getBirthdate())
+                .phoneNumber(customer.getPhoneNumber())
+                .rfc(customer.getRfc())
+                .email(customer.getEmail())
+                .password(customer.getPassword())
+                .createdAt(customer.getCreatedAt())
+                .userType(customer.getUserType())
+                .UpdatedAt(customer.getUpdatedAt())
+                .DeletedAt(customer.getDeletedAt())
+                .build();
     }
 }
 

@@ -30,33 +30,23 @@ public class SupervisorController {
         return ResponseEntity.ok().body(supervisor);
     }
 
-    @PostMapping("/post")
-    public ResponseEntity<SupervisorDTO> createSupervisor(@RequestBody SupervisorForm supervisorForm) {
-        Supervisor supervisor = new Supervisor();
-        supervisor.setFirstName(supervisorForm.getFirstName());
-        supervisor.setLastNamePaternal(supervisorForm.getLastNamePaternal());
-        supervisor.setLastNameMaternal(supervisorForm.getLastNameMaternal());
-        supervisor.setEmail(supervisorForm.getEmail());
-
-        SupervisorDTO createdSupervisor = supervisorService.createSupervisor(supervisor);
+    @PostMapping("/register")
+    public ResponseEntity<SupervisorDTO> registerSupervisor(@RequestBody SupervisorForm supervisorForm) {
+        SupervisorDTO createdSupervisor = supervisorService.registerSupervisor(supervisorForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSupervisor);
     }
 
-
     @PutMapping("/{id}")
     public ResponseEntity<SupervisorDTO> updateSupervisor(@PathVariable Long id, @RequestBody SupervisorForm supervisorForm) {
-        // Convertir SupervisorForm a Supervisor
         Supervisor updatedSupervisor = new Supervisor();
         updatedSupervisor.setFirstName(supervisorForm.getFirstName());
         updatedSupervisor.setLastNamePaternal(supervisorForm.getLastNamePaternal());
         updatedSupervisor.setLastNameMaternal(supervisorForm.getLastNameMaternal());
         updatedSupervisor.setEmail(supervisorForm.getEmail());
-        // Añade otros campos que necesites del formulario
 
         SupervisorDTO updatedSupervisorDTO = supervisorService.updateSupervisor(id, updatedSupervisor);
         return ResponseEntity.ok(updatedSupervisorDTO);
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSupervisor(@PathVariable Long id) {

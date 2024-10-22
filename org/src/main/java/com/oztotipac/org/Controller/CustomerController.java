@@ -19,7 +19,7 @@ public class CustomerController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
-        List<CustomerDTO> customers= customerService.getAllCustomers();
+        List<CustomerDTO> customers = customerService.getAllCustomers();
         return ResponseEntity.ok().body(customers);
     }
 
@@ -29,9 +29,9 @@ public class CustomerController {
         return ResponseEntity.ok().body(customer);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerForm customerForm) {
-        CustomerDTO createdCustomer = customerService.createCustomer(customerForm);
+    @PostMapping("/register")
+    public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody CustomerForm customerForm) {
+        CustomerDTO createdCustomer = customerService.registerCustomer(customerForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
 
@@ -45,20 +45,6 @@ public class CustomerController {
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<CustomerDTO>> searchCustomers(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String email) {
-        List<CustomerDTO> customers = customerService.searchCustomers(name, email);
-        return ResponseEntity.ok(customers);
-    }
-
-    @GetMapping("/getByPage")
-    public ResponseEntity<List<CustomerDTO>> getCustomersByPage(@RequestParam int page, @RequestParam int size) {
-        List<CustomerDTO> customers = customerService.getCustomersByPage(page, size);
-        return ResponseEntity.ok(customers);
     }
 
 }

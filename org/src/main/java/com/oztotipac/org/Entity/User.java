@@ -2,20 +2,20 @@ package com.oztotipac.org.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)  // Estrategia de herencia
-@DiscriminatorColumn(name = "user_type")  // Columna para discriminar el tipo de usuario
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "users")
 public class User {
 
     @Id
@@ -44,15 +44,23 @@ public class User {
     @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "password", length = 255, nullable = false)
+    @Column(name = "password", length = 6, nullable = false)
     private String password;
 
-    //@Enumerated(EnumType.STRING)
-    //@Column(name = "user_type", nullable = false)
-    //private UserType userType;
+    @ManyToOne  // Relación con UserType
+    @JoinColumn(name = "id_user_type", referencedColumnName = "id_user_type", nullable = false)
+    private UserType userType;
 
-    // Constructor con userType
-    public User(String firstName, String lastNamePaternal, String lastNameMaternal, LocalDate birthdate, String phoneNumber, String rfc, String email, String password) {
+    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+    @Column(name = "deleted_at", nullable = false)
+    private LocalDateTime deletedAt;
+
+    public User(String firstName, String lastNamePaternal, String lastNameMaternal, LocalDate birthdate, String phoneNumber, String rfc, String email, String password, UserType userType) {
         this.firstName = firstName;
         this.lastNamePaternal = lastNamePaternal;
         this.lastNameMaternal = lastNameMaternal;
@@ -61,6 +69,7 @@ public class User {
         this.rfc = rfc;
         this.email = email;
         this.password = password;
-        //this.userType = userType;
+        this.userType = userType;
+        this.createdAt = LocalDateTime.now();
     }
 }
