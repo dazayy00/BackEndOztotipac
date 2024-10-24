@@ -32,8 +32,8 @@ public class CustomerForm implements Serializable {
     @Email(message = "{wrong.email.structure}")
     private String email;
 
-    @Size(min = 6, message = "{password.min.length}")
+    @Size(min = 8, message = "{password.min.length}")
     private String password;
 
-    private UserType userType;
+    private String userType;
 }
