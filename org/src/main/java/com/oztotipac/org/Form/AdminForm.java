@@ -29,7 +29,7 @@ public class AdminForm implements Serializable {
 
     private String lastNameMaternal;
 
-    @Size(min = 6, message = "{password.min.length}")
+    @Size(min = 8, message = "{password.min.length}")
     private String password;
 
     @Size(min = 13, max = 13, message = "{rfc.right.length}")
