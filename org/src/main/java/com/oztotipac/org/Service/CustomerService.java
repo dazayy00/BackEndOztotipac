@@ -45,11 +45,15 @@ public class CustomerService {
         customer.setPassword(encodedPassword);
         customer.setCreatedAt(LocalDateTime.now());
 
+        // Buscar el tipo de usuario 'CUSTOMER'
         UserType customerType = userTypeRepository.findByTypeName("CUSTOMER");
+        if (customerType == null) {
+            throw new IllegalArgumentException("Invalid user type: CUSTOMER");
+        }
         customer.setUserType(customerType);
 
-        Customer savedCustomer = customerRepository.save(customer);
-        return CustomerDTO.build(savedCustomer);  // Convertir a DTO
+        User savedCustomer = userRepository.save(customer);
+        return CustomerDTO.build((Customer) savedCustomer);  // Convertir a DTO
     }
 
     public CustomerDTO updateCustomer(Long id, CustomerForm customerForm) {

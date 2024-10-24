@@ -44,7 +44,7 @@ public class User {
     @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "password", length = 6, nullable = false)
+    @Column(name = "password", length = 25, nullable = false)
     private String password;
 
     @ManyToOne  // Relación con UserType
